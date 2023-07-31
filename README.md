@@ -1,4 +1,4 @@
-## QizCard
+## QuizCard
 
 
 ## Lab 1
