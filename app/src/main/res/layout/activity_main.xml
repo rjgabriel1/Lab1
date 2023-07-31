@@ -11,23 +11,37 @@
         android:id="@+id/quizcard_question"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+<<<<<<< HEAD
         android:layout_margin="5dp"
         android:gravity="center"
         android:textSize="40sp"
         android:background="#6F61C0"
         android:textColor="#eee"
+=======
+        android:gravity="center"
+        android:textSize="40sp"
+        android:textColor="#757575"
+>>>>>>> dfaba6d (Initial commit)
         android:text="Who's the 4th President of the united states?" />
 
     <TextView
         android:id="@+id/quizcard_answer"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+<<<<<<< HEAD
         android:layout_margin="5dp"
         android:gravity="center"
         android:textSize="40sp"
         android:visibility="invisible"
         android:background="#5C8984"
         android:textColor="#eee"
+=======
+
+        android:gravity="center"
+        android:textSize="40sp"
+        android:visibility="invisible"
+        android:textColor="#757575"
+>>>>>>> dfaba6d (Initial commit)
         android:text="Barack Obama" />
 
 </RelativeLayout>
