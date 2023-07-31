@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">QuizCard</string>
+    <string name="textview">TextView</string>
+    <string name="who_s_the_4th_president_of_the_united_states">Who\'s the 4th president of the united states?</string>
+    <string name="who_s_the_4th_President_of_the_united_states" />
+    <string name="barack_obama">Barack Obama</string>
+</resources>
