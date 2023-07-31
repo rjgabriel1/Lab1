@@ -5,7 +5,7 @@
 
 ### App Description
  Basic Flashcard app that can display a question, and on tap display the answer to the question.
-### App Walk-though
+### App Walk-through
 
 <img src="device-2023-07-31-151602.gif" width=200><br>
 
