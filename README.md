@@ -11,7 +11,7 @@ Users can also create new flashcards right from the app.
 
 ### App Walk-through
 
-<img src="lab2.gif" width=300><br>
+<img src="Lab_2.gif" width=300><br>
 
 
 ## Required
@@ -22,7 +22,7 @@ Users can also create new flashcards right from the app.
 - [x] Push your progress to GitHub!
 
 ## Optional
-- [ ] User can edit a card
+- [x] User can edit a card
 - [ ] An error message is shown if the user doesn't enter both a Question and an Answer
 - [ ] A notification is shown if the card was created successfully
 - [ ] User can also enter multiple choice answers when creating a card

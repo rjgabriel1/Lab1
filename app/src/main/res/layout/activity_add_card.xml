@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="18dp"
-        android:gravity="center"
+        android:gravity="start"
         android:hint="@string/add_question"/>
 
     <EditText
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="18dp"
-        android:gravity="center"
+        android:gravity="start"
         android:hint="@string/add_answer"
          />
 

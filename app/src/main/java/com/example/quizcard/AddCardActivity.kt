@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
+import androidx.activity.result.contract.ActivityResultContracts
 
 class AddCardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,12 +19,19 @@ class AddCardActivity : AppCompatActivity() {
         val editTextQuestion = findViewById<EditText>(R.id.et_question)
         val editTextAnswer =findViewById<EditText>(R.id.et_answer)
 
+        var question = intent.getStringExtra("question")
+        var answer = intent.getStringExtra("answer")
+
+        editTextQuestion.setText(question)
+        editTextAnswer.setText(answer)
+
         btnClose.setOnClickListener {
             finish()
         }
+
         btnSave.setOnClickListener {
-            val question = editTextQuestion.text.toString()
-            val answer = editTextAnswer.text.toString()
+            question = editTextQuestion.text.toString()
+            answer = editTextAnswer.text.toString()
             val contents = Intent()
             contents.putExtra("question",question)
             contents.putExtra("answer",answer)

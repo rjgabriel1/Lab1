@@ -18,8 +18,8 @@ class MainActivity : AppCompatActivity() {
 
         val tvQuestion = findViewById<TextView>(R.id.quizcard_question)
         val tvAnswer = findViewById<TextView>(R.id.quizcard_answer)
-        val  btnAdd = findViewById<ImageButton>(R.id.btn_addCard)
-
+        val btnAdd = findViewById<ImageButton>(R.id.btn_addCard)
+        val btnEdit = findViewById<ImageButton>(R.id.btn_edit)
         // Toggle question and answer visibility
         tvQuestion.setOnClickListener {
             tvAnswer.visibility =View.VISIBLE
@@ -49,11 +49,24 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
 // ...
 
         btnAdd.setOnClickListener {
             val intent = Intent(this, AddCardActivity::class.java)
             addCardLauncher.launch(intent)
+        }
+
+
+        btnEdit.setOnClickListener {
+            val intent = Intent(this, AddCardActivity::class.java)
+            val question = tvQuestion.text.toString()
+            val answer = tvAnswer.text.toString()
+
+            intent.putExtra("question", question)
+            intent.putExtra("answer", answer)
+            addCardLauncher.launch(intent)
+
         }
 
 
