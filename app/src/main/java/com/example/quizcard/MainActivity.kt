@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-// ...
+
 
         btnAdd.setOnClickListener {
             val intent = Intent(this, AddCardActivity::class.java)
