@@ -4,15 +4,19 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
-import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity() {
+    lateinit var flashcardDatabase: FlashcardDatabase
+    var allFlashcards = mutableListOf<Flashcard>()
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        flashcardDatabase = FlashcardDatabase(this)
+        allFlashcards = flashcardDatabase.getAllCards().toMutableList()
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -32,12 +36,23 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        // first check the database to see if there's any saved flashcards
+        if(allFlashcards.size>0){
+            tvQuestion.text = allFlashcards[0].question
+            tvAnswer.text = allFlashcards[0].answer
+
+        }
+
+
+
+
 
         val addCardLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val data = result.data
+                val data = result?.data
                 val question = data?.getStringExtra("question")
                 val answer = data?.getStringExtra("answer")
+
 
                 if (!question.isNullOrEmpty()) {
                     tvQuestion.text = question
@@ -45,6 +60,11 @@ class MainActivity : AppCompatActivity() {
 
                 if (!answer.isNullOrEmpty()) {
                     tvAnswer.text = answer
+                }
+
+                // Card insertion
+                if(!question.isNullOrEmpty() && !answer.isNullOrEmpty()){
+                flashcardDatabase.insertCard(Flashcard(question, answer))
                 }
             }
         }
