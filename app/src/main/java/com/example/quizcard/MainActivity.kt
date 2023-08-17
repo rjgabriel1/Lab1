@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         // first check the database to see if there's any saved flashcards
         var cardIndex = 0
+
         fun updateFlashcardDisplay() {
             if (allFlashcards.isEmpty()) {
                 Snackbar.make(
@@ -73,6 +74,10 @@ class MainActivity : AppCompatActivity() {
             cardIndex ++
 
             if(cardIndex>=allFlashcards.size){
+
+                //show cards in random order
+                allFlashcards.shuffle()
+
                 Snackbar.make(
                     tvQuestion, "You've reached the end of the cards.",
                     Snackbar.LENGTH_SHORT
@@ -92,10 +97,8 @@ class MainActivity : AppCompatActivity() {
             cardIndex --
 
             if(cardIndex<0){
-                Snackbar.make(
-                    tvQuestion, "This is first cards.",
-                    Snackbar.LENGTH_SHORT
-                ).show()
+
+
                 cardIndex = allFlashcards.size -1
 
             }
@@ -113,7 +116,9 @@ class MainActivity : AppCompatActivity() {
                 ).show()
                 return@setOnClickListener
             }
-                allFlashcards.removeAt(cardIndex)
+                // Delete card
+            allFlashcards = allFlashcards.toMutableList().apply{removeAt(cardIndex) }
+
             if (allFlashcards.isEmpty()) {
                 tvQuestion.text = ""
                 tvAnswer.text = ""
