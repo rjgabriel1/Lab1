@@ -6,8 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".AddCardActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#0B2447"
+        app:title="Quiz Card"
+        app:titleTextColor="#eee"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Title"
+
+        />
+
     <EditText
         android:id="@+id/et_question"
+        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="18dp"
@@ -28,7 +40,7 @@
         android:id="@+id/btn_cancel"
         android:layout_width="44dp"
         android:layout_height="44dp"
-        android:background="@drawable/close"
+        android:background="@drawable/window_close"
         android:src="@android:color/transparent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"

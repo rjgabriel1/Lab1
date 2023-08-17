@@ -3,51 +3,109 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#0B2447"
+        app:title="Quiz Card"
+        app:titleTextColor="#eee"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Title"
+
+        />
 
 
     <TextView
         android:id="@+id/quizcard_question"
+        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_margin="4dp"
+        android:layout_margin="6dp"
         android:gravity="center"
         android:textSize="40sp"
-        android:textColor="#333"
+        android:textColor="#eee"
+        android:background="#19376D"
         android:text="Who's the 4th President of the united states?" />
 
     <TextView
         android:id="@+id/quizcard_answer"
+        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:gravity="center"
         android:textSize="40sp"
         android:visibility="invisible"
-        android:layout_margin="4dp"
-        android:textColor="#333"
+        android:layout_margin="6dp"
+        android:textColor="#eee"
+        android:background="#576CBC"
         android:text="Barack Obama" />
+
+
+
+    <ImageButton
+        android:id="@+id/btn_previous"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/previous"
+        android:src="@android:color/transparent"
+        android:layout_centerInParent="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="12dp"
+        />
+
+
+    <ImageButton
+        android:id="@+id/btn_next"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/next"
+        android:src="@android:color/transparent"
+        android:layout_centerInParent="true"
+       android:layout_alignParentEnd="true"
+        android:layout_margin="12dp"
+        />
 
     <ImageButton
         android:id="@+id/btn_edit"
+        android:layout_below="@+id/btn_next"
+        android:layout_marginTop="180dp"
+        android:layout_marginRight="12dp"
         android:layout_width="44dp"
         android:layout_height="44dp"
-        android:background="@drawable/edit"
+        android:background="@drawable/edit_"
         android:src="@android:color/transparent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_margin="12dp"
-        android:contentDescription="@string/close_button" />
+        android:layout_alignParentEnd="true"
+
+        />
 
     <ImageButton
         android:id="@+id/btn_addCard"
         android:layout_width="44dp"
         android:layout_height="44dp"
+
         android:background="@drawable/add_"
         android:src="@android:color/transparent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_margin="12dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginRight="12dp"
         android:contentDescription="@string/add_button" />
+
+    <ImageButton
+        android:id="@+id/btn_delete"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/delete_outline"
+        android:src="@android:color/transparent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="12dp"
+         />
 
 
 

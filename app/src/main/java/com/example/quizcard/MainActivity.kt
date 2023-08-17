@@ -4,15 +4,23 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation
+import android.provider.ContactsContract.CommonDataKinds.Im
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
-import org.w3c.dom.Text
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
+    lateinit var flashcardDatabase: FlashcardDatabase
+    var allFlashcards = mutableListOf<Flashcard>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
+        flashcardDatabase = FlashcardDatabase(this)
+        allFlashcards = flashcardDatabase.getAllCards().toMutableList()
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -20,6 +28,10 @@ class MainActivity : AppCompatActivity() {
         val tvAnswer = findViewById<TextView>(R.id.quizcard_answer)
         val btnAdd = findViewById<ImageButton>(R.id.btn_addCard)
         val btnEdit = findViewById<ImageButton>(R.id.btn_edit)
+        val btnDelete =findViewById<ImageButton>(R.id.btn_delete)
+        val btnNext = findViewById<ImageButton>(R.id.btn_next)
+        val btnPrevious = findViewById<ImageButton>(R.id.btn_previous)
+
         // Toggle question and answer visibility
         tvQuestion.setOnClickListener {
             tvAnswer.visibility =View.VISIBLE
@@ -32,12 +44,101 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        // first check the database to see if there's any saved flashcards
+        var cardIndex = 0
+        fun updateFlashcardDisplay() {
+            if (allFlashcards.isEmpty()) {
+                Snackbar.make(
+                    tvQuestion, "No flashcards available.",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                return
+            }
+
+            val (question, answer) = allFlashcards[cardIndex]
+            tvQuestion.text = question
+            tvAnswer.text = answer
+        }
+
+        btnNext.setOnClickListener{
+            if (allFlashcards.isEmpty()) {
+                Snackbar.make(
+                    tvQuestion, "No flashcards available.",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
+
+            cardIndex ++
+
+            if(cardIndex>=allFlashcards.size){
+                Snackbar.make(
+                    tvQuestion, "You've reached the end of the cards.",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                cardIndex = 0
+            }
+            updateFlashcardDisplay()
+        }
+
+         // Previous Button
+        btnPrevious.setOnClickListener{
+            if (allFlashcards.isEmpty()){
+                return@setOnClickListener
+            }
+
+
+            cardIndex --
+
+            if(cardIndex<0){
+                Snackbar.make(
+                    tvQuestion, "This is first cards.",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                cardIndex = allFlashcards.size -1
+
+            }
+
+            // pull the question and answer from the database
+           updateFlashcardDisplay()
+        }
+
+
+        btnDelete.setOnClickListener{
+            if (allFlashcards.isEmpty()) {
+                Snackbar.make(
+                    tvQuestion, "No flashcards available.",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+                allFlashcards.removeAt(cardIndex)
+            if (allFlashcards.isEmpty()) {
+                tvQuestion.text = ""
+                tvAnswer.text = ""
+                Snackbar.make(
+                    tvQuestion, "Flashcard deleted. No more flashcards.",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            } else {
+                if (cardIndex >= allFlashcards.size) {
+                    cardIndex = 0
+                }
+                updateFlashcardDisplay()
+            }
+
+
+        }
+
+
 
         val addCardLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val data = result.data
+                val data = result?.data
                 val question = data?.getStringExtra("question")
                 val answer = data?.getStringExtra("answer")
+
 
                 if (!question.isNullOrEmpty()) {
                     tvQuestion.text = question
@@ -45,6 +146,11 @@ class MainActivity : AppCompatActivity() {
 
                 if (!answer.isNullOrEmpty()) {
                     tvAnswer.text = answer
+                }
+
+                // Card insertion
+                if(!question.isNullOrEmpty() && !answer.isNullOrEmpty()){
+                flashcardDatabase.insertCard(Flashcard(question, answer))
                 }
             }
         }
