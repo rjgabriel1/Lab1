@@ -1,5 +1,32 @@
 ## QuizCard
 
+
+## Lab 4
+
+### App Description
+Basic Flashcard app that can display a question, and on tap display the answer to the question.
+Users can also create new flashcards, delete a card .
+
+### App Walk-though
+
+
+<img src="Lab_4.gif" width=300><br>
+
+
+## Required
+- [x] User sees a transition animation when going from the main screen to the add card screen.
+- [x] User sees a reveal animation when the flashcard is tapped and the answer is shown
+- [x] User sees flashcards animating in / out when the 'next' button is tapped
+
+## Optional
+- [x] Extra styling is added!
+- [x] User sees a countdown timer for each question
+- [x] User sees a 'card flip' animation when the card is tapped
+- [ ] User sees a celebration animation with confetti when they answer a question correctly
+
+
+
+
 ## Lab 3
 
 ### App Description
@@ -58,7 +85,7 @@ Users can also create new flashcards right from the app.
 Basic Flashcard app that can display a question, and on tap display the answer to the question.
 ### App Walk-through
 
-<img src="device-2023-07-31-151602.gif" width=300><br>
+<img src="Lab_1.gif" width=300><br>
 
 
 ## Required

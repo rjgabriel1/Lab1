@@ -17,22 +17,32 @@
 
         />
 
+    <TextView
+        android:layout_below="@+id/toolbar"
+        android:id="@+id/timer"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="#BB2525"
+        android:textSize="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="20dp"/>
 
     <TextView
         android:id="@+id/quizcard_question"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/timer"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_margin="6dp"
         android:gravity="center"
         android:textSize="40sp"
         android:textColor="#eee"
-        android:background="#19376D"
+        android:background="@drawable/card_background"
         android:text="Who's the 4th President of the united states?" />
 
     <TextView
         android:id="@+id/quizcard_answer"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/timer"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:gravity="center"
@@ -40,7 +50,7 @@
         android:visibility="invisible"
         android:layout_margin="6dp"
         android:textColor="#eee"
-        android:background="#576CBC"
+      android:background="@drawable/card_answer_background"
         android:text="Barack Obama" />
 
 

@@ -4,8 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.provider.ContactsContract.CommonDataKinds.Im
+import android.util.Log.v
 import android.view.View
+import android.view.ViewAnimationUtils
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
@@ -14,6 +19,8 @@ import com.google.android.material.snackbar.Snackbar
 class MainActivity : AppCompatActivity() {
     lateinit var flashcardDatabase: FlashcardDatabase
     var allFlashcards = mutableListOf<Flashcard>()
+    var countDownTimer: CountDownTimer? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -34,15 +41,62 @@ class MainActivity : AppCompatActivity() {
 
         // Toggle question and answer visibility
         tvQuestion.setOnClickListener {
-            tvAnswer.visibility =View.VISIBLE
-            tvQuestion.visibility =View.INVISIBLE
+
+                tvQuestion.animate()
+                .rotationY(90f)
+                .setDuration(200)
+                .withEndAction(
+                    Runnable {
+                        tvQuestion.setVisibility(View.INVISIBLE)
+                      tvAnswer.visibility = View.VISIBLE
+                        // second quarter turn
+                        tvAnswer.rotationY = -90f
+                        tvAnswer.animate()
+                            .rotationY(0f)
+                            .setDuration(200)
+                            .start()
+                    }
+                ).start()
         }
+
 
         tvAnswer.setOnClickListener {
-            tvQuestion.visibility = View.VISIBLE
-            tvAnswer.visibility = View.INVISIBLE
+
+            tvAnswer.animate()
+                .rotationY(90f)
+                .setDuration(200)
+                .withEndAction(
+                    Runnable {
+                        tvAnswer.setVisibility(View.INVISIBLE)
+                        tvQuestion.visibility = View.VISIBLE
+                        // second quarter turn
+                        tvQuestion.rotationY = -90f
+                        tvQuestion.animate()
+                            .rotationY(0f)
+                            .setDuration(200)
+                            .start()
+                    }
+                ).start()
 
         }
+
+        fun startTimer() {
+            countDownTimer?.cancel() // Cancel any existing timer
+            countDownTimer?.start() // Start the new timer
+        }
+
+
+//        Initialize timer
+        countDownTimer = object : CountDownTimer(16000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                findViewById<TextView>(R.id.timer).text = "" + millisUntilFinished / 1000
+            }
+
+            override fun onFinish() {}
+        }
+
+
+
 
         // first check the database to see if there's any saved flashcards
         var cardIndex = 0
@@ -84,7 +138,30 @@ class MainActivity : AppCompatActivity() {
                 ).show()
                 cardIndex = 0
             }
+
+            startTimer()
             updateFlashcardDisplay()
+
+            val leftOutAnim = AnimationUtils.loadAnimation(this, R.anim.left_out)
+            val rightInAnim = AnimationUtils.loadAnimation(this, R.anim.right_in)
+
+
+            leftOutAnim.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationStart(animation: Animation?) {
+                    // Called when the animation starts
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {
+                    // Called when the animation ends
+                    tvQuestion.startAnimation(rightInAnim) // Start the rightIn animation here
+                }
+
+                override fun onAnimationRepeat(animation: Animation?) {
+
+                }
+            })
+            // Start the leftOut animation on the view
+            tvQuestion.startAnimation(leftOutAnim)
         }
 
          // Previous Button
@@ -166,6 +243,7 @@ class MainActivity : AppCompatActivity() {
         btnAdd.setOnClickListener {
             val intent = Intent(this, AddCardActivity::class.java)
             addCardLauncher.launch(intent)
+            overridePendingTransition(R.anim.right_in, R.anim.left_out)
         }
 
 
@@ -177,6 +255,8 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("question", question)
             intent.putExtra("answer", answer)
             addCardLauncher.launch(intent)
+            overridePendingTransition(R.anim.right_in, R.anim.left_out)
+
 
         }
 
